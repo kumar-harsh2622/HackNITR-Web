@@ -1,0 +1,171 @@
+<%- include('partials/header')%>
+<section>
+  <div class="header">
+    <h2>FIR-contents</h2>
+  </div>
+  <div class="container">
+    <div class="row">
+      <fieldset>
+        <legend>
+          <h5>Complainant Details</h5>
+        </legend>
+        <table>
+          <tr>
+            <td>Fir-Number:</td>
+            <td><%= fir['fir-no']%></td>
+          </tr>
+          <tr>
+            <td>Name:</td>
+            <td><%= fir.complainant['name']%></td>
+            <td>Sex:</td>
+            <td><%= fir.complainant['sex']%></td>
+          </tr>
+          <tr>
+            <td>Email:</td>
+            <td><%= fir.complainant['email']%></td>
+            <td>Phone No.:</td>
+            <td><%= fir.complainant['phone']%></td>
+          </tr>
+          <tr>
+            <td>Date of Birth:</td>
+            <td><%= fir.complainant['dob']%></td>
+          </tr>
+        </table>
+      </fieldset>
+      <fieldset>
+        <legend>
+          <h5>Address Details</h5>
+        </legend>
+        <table>
+          <tr>
+            <td>Present State:</td>
+            <td><%= fir.complainant.address['state']%></td>
+            <td>Present District:</td>
+            <td><%= fir.complainant.address['district']%></td>
+          </tr>
+          <tr>
+            <td>Present Village/Town/City:</td>
+            <td><%= fir.complainant.address['city']%></td>
+            <td>Police Station:</td>
+            <td><%= fir.complainant.address['ps']%></td>
+          </tr>
+          <tr>
+            <td>Permanent State:</td>
+            <td><%= fir.complainant['perm-address']['state']%></td>
+            <td>Permanent District:</td>
+            <td><%= fir.complainant['perm-address']['district']%></td>
+          </tr>
+          <tr>
+            <td>Permanent Village/Town/City:</td>
+            <td><%= fir.complainant['perm-address']['city']%></td>
+            <td>Police Station:</td>
+            <td><%= fir.complainant['perm-address']['ps']%></td>
+          </tr>
+        </table>
+      </fieldset>
+      <fieldset>
+        <legend>
+          <h5>FIR Details</h5>
+        </legend>
+        <table>
+          <tr>
+            <td>Nature of Complaint:</td>
+            <td><%= fir['nature-of-complaint']%></td>
+            <td>Crime Subtype:</td>
+            <td><%= fir['crime-sub-type']%></td>
+          </tr>
+          <tr>
+            <td>Victim Present:</td>
+            <% if(fir['is-victim-present']==1){%>
+            <td>Present</td>
+            <%}else{%>
+            <td>Not Present</td>
+            <%}%>
+            <td>Occurence Place Known:</td>
+            <% if(fir['is-crime-scene']==1){%>
+            <td>Yes</td>
+            <% }else{%>
+            <td>No</td>
+            <%}%>
+          </tr>
+          <tr>
+            <td>FIR Content:</td>
+            <td colspan="3"><%= fir['content']%></td>
+          </tr>
+        </table>
+      </fieldset>
+      <fieldset>
+        <legend>
+          <h5>Complainant Signature</h5>
+        </legend>
+        <table>
+          <tr>
+            <td>Complainant Signature:</td>
+            <td><img src="<%= fir.signature['url']%>" alt="none_found" /></td>
+          </tr>
+        </table>
+      </fieldset>
+    </div>
+    <div class="row">
+      <div class="date">
+        <p><strong>Date: </strong><%= fir['date']%></p>
+      </div>
+      <% if(fir.status == 'pending' && fir.accepted == 0){ %>
+      <div class="verify">
+        <a class="btn waves-effect waves-light submit-btn light-blue darken-4" href="<%= fir['fir-no'] %>/accept" type="submit"
+          name="action">
+          Accept
+          <i class="material-icons right">done_all</i>
+        </a>
+        <button data-target="modal1" class="btn modal-trigger waves-effect waves-light submit-btn light-blue darken-4" type="submit"
+          name="action">
+          Reject
+          <i class="material-icons right">clear</i>
+        </button>
+      </div>
+      <% } %>
+
+
+    </div>
+    <div class="row">
+      <% if(fir.status == 'accepted'){ %>
+      <div>
+        <h3>This FIR is accepted &nbsp; <i class="material-icons">done_all</i> </h3>
+      </div>
+      <% } else if(fir.status == 'rejected'){ %>
+      <div>
+        <h3>This FIR is Rejected &nbsp; <i class="material-icons">clear</i> </h3>
+      </div>
+      <% } %>
+    </div>
+  </div>
+</section>
+
+<% if(fir.status == 'pending' && fir.accepted == 0){ %>
+<aside>
+  <!-- Modal Structure -->
+  <form action="/fir/<%= fir['fir-no'] %>/reject" method="POST">
+    <div id="modal1" class="modal bottom-sheet">
+      <div class="modal-content">
+        <h4>Write cause of Rejection</h4>
+        <div class="input-field col s6">
+          <i class="material-icons prefix">mode_edit</i>
+          <textarea required id="icon_prefix2" class="materialize-textarea" name="reason"></textarea>
+          <label for="icon_prefix2">Message</label>
+        </div>
+      </div>
+      <button class="btn waves-effect waves-light submit-btn light-blue darken-4" type="submit" style="display: block;width: 100%;">
+        Reject
+      </button>
+    </div>
+  </form>
+</aside>
+<% } %>
+
+<%- include('partials/footer')%>
+
+<script>
+  $(document).ready(function () {
+    $('.modal').modal();
+  });
+</script>

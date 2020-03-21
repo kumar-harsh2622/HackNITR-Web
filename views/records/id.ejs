@@ -1,0 +1,94 @@
+<%- include('partials/header')%>
+<section>
+  <div class="header">
+    <h2>Criminal History</h2>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="images">
+        <p>
+          <!-- <img src="/images/icon.png" alt="none found" /> -->
+          <% for(let url of criminal.images){ %>
+          <img src="<%= url %>" alt="none found" />
+          <% } %>
+        </p>
+        <span>Reward:&nbsp;<%=criminal.reward%></span>
+      </div>
+    </div>
+    <div class="row">
+      <fieldset>
+        <legend>
+          <h5>Criminal Details</h5>
+        </legend>
+        <table id="persondetails">
+          <tr>
+            <td colspan="2">Criminal ID: <%= criminal.personId %></td>
+          </tr>
+          <tr>
+            <td>Name:</td>
+            <td><%= criminal.name %></td>
+            <td>Sex:</td>
+            <td><%= criminal.sex %></td>
+          </tr>
+          <tr>
+            <td>Father's Name:</td>
+            <td><%= criminal.fathername%></td>
+            <td>Phone No.:</td>
+            <td><%= criminal.phone %></td>
+          </tr>
+          <tr>
+            <td>
+              State:
+            </td>
+            <td><%= criminal.state %></td>
+            <td>District:</td>
+            <td><%= criminal.district %></td>
+          </tr>
+          <tr>
+            <td>Local Area:</td>
+            <td><%= criminal.city %></td>
+            <td>Date of Birth:</td>
+            <td><%= criminal.dob %></td>
+          </tr>
+        </table>
+      </fieldset>
+      <fieldset>
+        <legend>
+          <h5>Crime History</h5>
+        </legend>
+        <table id="crime">
+          <thead>
+            <tr>
+              <th>S.No.</th>
+              <th>Crime Type</th>
+              <th>Crime Subtype</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% for(let crime of crimes){ %>
+            <tr>
+              <td></td>
+              <td><%= crime.type %></td>
+              <td><%= crime['sub-type'] %></td>
+              <td><%= crime.desc %></td>
+            </tr>
+            <% } %>
+          </tbody>
+        </table>
+        <div class="addcrime">
+          <button
+            class="btn waves-effect waves-light submit-btn"
+            type="submit"
+            name="action"
+          >
+            <i class="material-icons right">add</i>
+            Add crime
+          </button>
+        </div>
+      </fieldset>
+    </div>
+  </div>
+</section>
+
+<%- include('partials/footer')%>

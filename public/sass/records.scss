@@ -1,0 +1,19 @@
+body{
+    padding-left: 300px;
+}
+
+section{
+    padding: 16px;
+}
+
+h1{
+    text-align: center;
+}
+
+.sidenav.dark{
+    background: rgb(24, 23, 23);
+
+    li > a{
+        color: white;
+    }
+}

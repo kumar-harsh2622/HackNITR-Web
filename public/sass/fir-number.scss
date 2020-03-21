@@ -1,0 +1,40 @@
+.header {
+  text-align: center;
+}
+.verify {
+  float: right;
+  margin-top: 20px;
+}
+.date {
+  float: left;
+}
+tr {
+  border-bottom: none;
+}
+$i: 1;
+tr td:nth-child(#{$i + 0}) {
+  font-weight: 500;
+  width: 20%;
+}
+tr td:nth-child(#{$i + 1}) {
+  width: 20%;
+}
+tr td:nth-child(#{$i + 2}) {
+  font-weight: 500;
+  width: 20%;
+}
+tr td:nth-child(#{$i + 3}) {
+  width: 30%;
+}
+img {
+  height: 150px;
+}
+
+
+.modal{
+  width: 1200px!important;
+  margin: auto!important;
+  left: 300px!important;
+}
+
+
